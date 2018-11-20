@@ -395,7 +395,7 @@ blockquote cite::before {
 	margin-left: 1em;
 	clear: right;
 }
-.postarea .bbc_img:hover {
+.postarea .bbc_img.resized:hover {
 	cursor: pointer;
 }
 .bbc_img.original_size {
@@ -1239,13 +1239,13 @@ ul li.greeting {
 
 /* The quick buttons */
 .quickbuttons {
-	margin: 11px 0 4px 0;
+	margin: 5px 0;
 	clear: right;
 	float: right;
 	text-align: right;
 	font-size: 0.9em;
 }
-.quickbuttons li {
+.quickbuttons>li {
 	float: left;
 	display: inline;
 	height: 23px;
@@ -1309,7 +1309,7 @@ ul li.greeting {
 	display: block;
 	background: none;
 	box-shadow: none;
-	width: 12em;
+	width: 15em;
 	border: 1px solid transparent;
 	border-radius: 3px;
 }
@@ -1321,8 +1321,7 @@ ul li.greeting {
 .quickbuttons ul li a, .quickbuttons ul li a:focus {
 	display: block;
 	line-height: 2.2em;
-	width: 12em;
-	padding: 0;
+	padding: 0 3px;
 }
 /* Sub buttons doesn't need to be effected by first-child/last-child */
 .quickbuttons li > ul > li {
@@ -1645,6 +1644,10 @@ tr.windowbg td, .table_grid tr td {
 /* Small fix for topics */
 .quickbuttons span.generic_icons {
 	margin: -3px 3px 0 1px;
+}
+
+.quickbuttons span.generic_icons::before {
+	margin: -3px 0 0px;
 }
 .quickbuttons span.generic_icons.quote,
 .quickbuttons span.generic_icons.quote_selected {
@@ -3211,9 +3214,6 @@ div#pollmoderation {
 	line-height: 1.5em;
 	font-size: 0.9em;
 }
-.keyinfo h5 a, .keyinfo h5 a strong {
-	color: #ad6825;
-}
 .keyinfo h5 a.floatright {
 	padding: 0 12px 0 0; /* Deprecated? */
 }
@@ -3222,6 +3222,13 @@ div#pollmoderation {
 	font-weight: normal;
 	font-style: italic;
 	padding: 2px 4px 0 4px;
+}
+/* Only colorate on the posts */
+#forumposts .keyinfo h5 a, #forumposts .keyinfo h5 a strong {
+	color: #ad6825;
+}
+#personal_messages .keyinfo h5 span:not(.message_subject) {
+    font-weight: normal;
 }
 .mvisible::before {
 	content: "« ";
@@ -3424,6 +3431,14 @@ ul.post_options li {
 }
 .under_message {
 	overflow: visible;
+	border: none;
+	box-shadow: none;
+}
+
+.under_message::after {
+	content: "";
+	display: block;
+	clear: right;
 }
 /* Events */
 .edit_event {

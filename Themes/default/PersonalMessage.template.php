@@ -407,35 +407,34 @@ function template_folder()
 					<div class="flow_hidden">
 						<div class="keyinfo">
 							<h5 id="subject_', $message['id'], '">
-								', $message['subject'], '
-							</h5>';
+								<span class="message_subject">', $message['subject'], '</span>';
 
-			// Show who the message was sent to.
-			echo '
-							<span class="smalltext">&#171; <strong> ', $txt['sent_to'], ':</strong> ';
+				// Show who the message was sent to.
+				echo '
+								<span class="smalltext floatright">&#171; <strong> ', $txt['sent_to'], ':</strong> ';
 
-			// People it was sent directly to....
-			if (!empty($message['recipients']['to']))
-				echo implode(', ', $message['recipients']['to']);
+				// People it was sent directly to....
+				if (!empty($message['recipients']['to']))
+					echo implode(', ', $message['recipients']['to']);
 
-			// Otherwise, we're just going to say "some people"...
-			elseif ($context['folder'] != 'sent')
-				echo '(', $txt['pm_undisclosed_recipients'], ')';
+				// Otherwise, we're just going to say "some people"...
+				elseif ($context['folder'] != 'sent')
+					echo '(', $txt['pm_undisclosed_recipients'], ')';
 
-			echo '
-								<strong> ', $txt['on'], ':</strong> ', $message['time'], ' &#187;
-							</span>';
+				echo '
+									<strong> ', $txt['on'], ':</strong> ', $message['time'], ' &#187;
+								</span>';
 
-			// If we're in the sent items, show who it was sent to besides the "To:" people.
-			if (!empty($message['recipients']['bcc']))
-				echo '<br>
-							<span class="smalltext">&#171; <strong> ', $txt['pm_bcc'], ':</strong> ', implode(', ', $message['recipients']['bcc']), ' &#187;</span>';
+				// If we're in the sent items, show who it was sent to besides the "To:" people.
+				if (!empty($message['recipients']['bcc']))
+					echo '<br>
+								<span class="smalltext">&#171; <strong> ', $txt['pm_bcc'], ':</strong> ', implode(', ', $message['recipients']['bcc']), ' &#187;</span>';
 
-			if (!empty($message['is_replied_to']))
-				echo '<br>
-							<span class="smalltext">&#171; ', $context['folder'] == 'sent' ? $txt['pm_sent_is_replied_to'] : $txt['pm_is_replied_to'], ' &#187;</span>';
+				if (!empty($message['is_replied_to']))
+					echo '<br>
+								<span class="smalltext">&#171; ', $context['folder'] == 'sent' ? $txt['pm_sent_is_replied_to'] : $txt['pm_is_replied_to'], ' &#187;</span>';
 
-			echo '
+			echo '			</h5>
 						</div><!-- .keyinfo -->
 					</div><!-- .flow_hidden -->
 					<div class="post">
@@ -446,10 +445,6 @@ function template_folder()
 			if ($message['can_report'] || $context['can_send_pm'])
 				echo '
 						<div class="under_message">';
-
-			if ($message['can_report'])
-				echo '
-							<a href="' . $scripturl . '?action=pm;sa=report;l=' . $context['current_label_id'] . ';pmsg=' . $message['id'] . '" class="floatright">' . $txt['pm_report_to_admin'] . '</a>';
 
 			echo '
 							<ul class="quickbuttons">';
@@ -474,6 +469,11 @@ function template_folder()
 					echo '
 								<li><a href="', $scripturl, '?action=pm;sa=send;f=', $context['folder'], $context['current_label_id'] != -1 ? ';l=' . $context['current_label_id'] : '', ';pmsg=', $message['id'], ';quote"><span class="generic_icons quote"></span>', $txt['reply_quote'], '</a></li>';
 			}
+			
+			if ($message['can_report'])
+				echo '
+								<li><a href="' . $scripturl . '?action=pm;sa=report;l=' . $context['current_label_id'] . ';pmsg=' . $message['id'] . '" class="floatright"><span class="generic_icons moderate"></span>' . $txt['pm_report_to_admin'] . '</a></li>';
+
 			echo '
 								<li><a href="', $scripturl, '?action=pm;sa=pmactions;pm_actions%5b', $message['id'], '%5D=delete;f=', $context['folder'], ';start=', $context['start'], $context['current_label_id'] != -1 ? ';l=' . $context['current_label_id'] : '', ';', $context['session_var'], '=', $context['session_id'], '" data-confirm="', addslashes($txt['remove_message_question']), '" class="you_sure"><span class="generic_icons remove_button"></span>', $txt['delete'], '</a></li>';
 

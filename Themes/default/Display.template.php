@@ -825,15 +825,6 @@ function template_single_post($message)
 		echo '
 							<div class="under_message">';
 
-	// Maybe they want to report this post to the moderator(s)?
-	if ($context['can_report_moderator'])
-		echo '
-								<ul class="floatright smalltext">
-									<li class="report_link">
-										<a href="', $scripturl, '?action=reporttm;topic=', $context['current_topic'], '.', $message['counter'], ';msg=', $message['id'], '">', $txt['report_to_mod'], '</a>
-									</li>
-								</ul>';
-
 	// What about likes?
 	if (!empty($modSettings['enable_likes']))
 	{
@@ -918,12 +909,17 @@ function template_single_post($message)
 		if ($context['can_split'] && !empty($context['real_num_replies']))
 			echo '
 											<li><a href="', $scripturl, '?action=splittopics;topic=', $context['current_topic'], '.0;at=', $message['id'], '"><span class="generic_icons split_button"></span>', $txt['split'], '</a></li>';
-
+		
 		// Can we issue a warning because of this post? Remember, we can't give guests warnings.
 		if ($context['can_issue_warning'] && !$message['is_message_author'] && !$message['member']['is_guest'])
 			echo '
 											<li><a href="', $scripturl, '?action=profile;area=issuewarning;u=', $message['member']['id'], ';msg=', $message['id'], '"><span class="generic_icons warn_button"></span>', $txt['issue_warning'], '</a></li>';
-
+		
+		// Maybe they want to report this post to the moderator(s)?
+		if ($context['can_report_moderator'])
+			echo '
+											<li><a href="', $scripturl, '?action=reporttm;topic=', $context['current_topic'], '.', $message['counter'], ';msg=', $message['id'], '"><span class="generic_icons moderate"></span>', $txt['report_to_mod'], '</a></li>';
+		
 		// Can we restore topics?
 		if ($context['can_restore_msg'])
 			echo '
