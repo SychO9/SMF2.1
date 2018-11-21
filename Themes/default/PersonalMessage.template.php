@@ -437,7 +437,6 @@ function template_folder()
 							', $message['body'], '
 						</div>';
 
-			if ($message['can_report'] || $context['can_send_pm'])
 				echo '
 						<div class="under_message">';
 
@@ -479,7 +478,6 @@ function template_folder()
 			echo '
 							</ul>';
 
-			if ($message['can_report'] || $context['can_send_pm'])
 			echo '
 						</div><!-- .under_message -->';
 
