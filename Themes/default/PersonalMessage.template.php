@@ -328,6 +328,39 @@ function template_folder()
 						</li>';
 				}
 
+				// Show the profile, website, email address, and personal message buttons.
+				if ($message['member']['show_profile_buttons'])
+				{
+					echo '
+						<li class="profile">
+							<ol class="profile_icons">';
+
+					// Don't show an icon if they haven't specified a website.
+					if ($message['member']['website']['url'] != '' && !isset($context['disabled_fields']['website']))
+						echo '
+								<li><a href="', $message['member']['website']['url'], '" title="' . $message['member']['website']['title'] . '" target="_blank" rel="noopener">', ($settings['use_image_buttons'] ? '<span class="generic_icons www centericon" title="' . $message['member']['website']['title'] . '"></span>' : $txt['www']), '</a></li>';
+
+					// Since we know this person isn't a guest, you *can* message them.
+					if ($context['can_send_pm'])
+						echo '
+								<li><a href="', $scripturl, '?action=pm;sa=send;u=', $message['member']['id'], '" title="', $message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline'], '">', $settings['use_image_buttons'] ? '<span class="generic_icons im_' . ($message['member']['online']['is_online'] ? 'on' : 'off') . ' centericon" title="' . ($message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']) . '"></span> ' : ($message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']), '</a></li>';
+
+					// Don't show the email address if they want it hidden.
+					if ($message['member']['show_email'])
+						echo '
+								<li><a href="mailto:', $message['member']['email'], '" rel="nofollow">', ($settings['use_image_buttons'] ? '<span class="generic_icons mail centericon" title="' . $txt['email'] . '"></span>' : $txt['email']), '</a></li>';
+					
+					echo '
+							</ol>
+						</li><!-- .profile -->';
+				}
+
+				// Any custom fields for standard placement?
+				if (!empty($message['custom_fields']['standard']))
+					foreach ($message['custom_fields']['standard'] as $custom)
+						echo '
+						<li class="custom ', $custom['col_name'] ,'">', $custom['title'], ': ', $custom['value'], '</li>';
+
 				// Show the IP to this user for this post - because you can moderate?
 				if (!empty($context['can_moderate_forum']) && !empty($message['member']['ip']))
 					echo '
@@ -348,44 +381,6 @@ function template_folder()
 						<li class="poster_ip">
 							<a href="', $scripturl, '?action=helpadmin;help=see_member_ip" onclick="return reqOverlayDiv(this.href);" class="help">', $txt['logged'], '</a>
 						</li>';
-
-				// Show the profile, website, email address, and personal message buttons.
-				if ($message['member']['show_profile_buttons'])
-				{
-					echo '
-						<li class="profile">
-							<ol class="profile_icons">';
-
-					// Show the profile button
-					if ($message['member']['can_view_profile'])
-						echo '
-								<li><a href="', $message['member']['href'], '">', ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/icons/profile_sm.png" alt="' . $txt['view_profile'] . '" title="' . $txt['view_profile'] . '">' : $txt['view_profile']), '</a></li>';
-
-					// Don't show an icon if they haven't specified a website.
-					if ($message['member']['website']['url'] != '' && !isset($context['disabled_fields']['website']))
-						echo '
-								<li><a href="', $message['member']['website']['url'], '" title="' . $message['member']['website']['title'] . '" target="_blank" rel="noopener">', ($settings['use_image_buttons'] ? '<span class="generic_icons www centericon" title="' . $message['member']['website']['title'] . '"></span>' : $txt['www']), '</a></li>';
-
-					// Don't show the email address if they want it hidden.
-					if ($message['member']['show_email'])
-						echo '
-								<li><a href="mailto:', $message['member']['email'], '" rel="nofollow">', ($settings['use_image_buttons'] ? '<span class="generic_icons mail centericon" title="' . $txt['email'] . '"></span>' : $txt['email']), '</a></li>';
-
-					// Since we know this person isn't a guest, you *can* message them.
-					if ($context['can_send_pm'])
-						echo '
-								<li><a href="', $scripturl, '?action=pm;sa=send;u=', $message['member']['id'], '" title="', $message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline'], '">', $settings['use_image_buttons'] ? '<span class="generic_icons im_' . ($message['member']['online']['is_online'] ? 'on' : 'off') . ' centericon" title="' . ($message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']) . '"></span> ' : ($message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']), '</a></li>';
-
-					echo '
-							</ol>
-						</li>';
-				}
-
-				// Any custom fields for standard placement?
-				if (!empty($message['custom_fields']['standard']))
-					foreach ($message['custom_fields']['standard'] as $custom)
-						echo '
-						<li class="custom ', $custom['col_name'] ,'">', $custom['title'], ': ', $custom['value'], '</li>';
 
 				// Are we showing the warning status?
 				if ($message['member']['can_see_warning'])
