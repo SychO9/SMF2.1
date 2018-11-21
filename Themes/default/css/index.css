@@ -1645,9 +1645,8 @@ tr.windowbg td, .table_grid tr td {
 .quickbuttons span.generic_icons {
 	margin: 0px 3px 0 0px;
 }
-
 .quickbuttons span.generic_icons::before {
-	margin: -1px 0 0px;
+	margin-top: -4px;
 }
 .quickbuttons span.generic_icons.quote,
 .quickbuttons span.generic_icons.quote_selected {
