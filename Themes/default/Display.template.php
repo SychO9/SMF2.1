@@ -880,8 +880,8 @@ function template_single_post($message)
 		// Can the user modify the contents of this post? Show the modify inline image.
 		if ($message['can_modify'])
 			echo '
-									<li class="quick_edit">
-										<a title="', $txt['modify_msg'], '" class="modifybutton" id="modify_button_', $message['id'], '" onclick="oQuickModify.modifyMsg(\'', $message['id'], '\', \'', !empty($modSettings['toggle_subject']), '\')"><span class="generic_icons quick_edit_button"></span>', $txt['quick_edit'], '</a>
+									<li class="quick_edit" id="modify_button_', $message['id'], '" onclick="oQuickModify.modifyMsg(\'', $message['id'], '\', \'', !empty($modSettings['toggle_subject']), '\')">
+										<a title="', $txt['modify_msg'], '" class="modifybutton"><span class="generic_icons quick_edit_button"></span>', $txt['quick_edit'], '</a>
 									</li>';
 
 		// Show the rest of the quick buttons in an additional menu
