@@ -1643,11 +1643,11 @@ tr.windowbg td, .table_grid tr td {
 
 /* Small fix for topics */
 .quickbuttons span.generic_icons {
-	margin: -3px 3px 0 1px;
+	margin: 0px 3px 0 0px;
 }
 
 .quickbuttons span.generic_icons::before {
-	margin: -3px 0 0px;
+	margin: -1px 0 0px;
 }
 .quickbuttons span.generic_icons.quote,
 .quickbuttons span.generic_icons.quote_selected {
@@ -1957,7 +1957,7 @@ tr.windowbg td, .table_grid tr td {
 .generic_icons.merge::before {
 	background-position: -83px -239px;
 }
-.generic_icons.folder::before {
+.generic_icons.folder::before, .generic_icons[class^="generic_icons label"]::before {
 	background-position: -109px -239px;
 }
 .generic_icons.restore_button::before {
@@ -2456,7 +2456,7 @@ dl.stats {
 	margin: 0 0 0 9em;
 }
 #personal_messages div.labels {
-	padding: 0 12px 0 0;
+	margin: 5px 0;
 }
 #personal_messages .capacity_bar {
 	background: #f0f4f7;
