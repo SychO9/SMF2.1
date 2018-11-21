@@ -911,7 +911,7 @@ function template_single_post($message)
 			if ($context['can_split'] && !empty($context['real_num_replies']))
 				echo '
 											<li><a href="', $scripturl, '?action=splittopics;topic=', $context['current_topic'], '.0;at=', $message['id'], '"><span class="generic_icons split_button"></span>', $txt['split'], '</a></li>';
-		
+
 			// Can we issue a warning because of this post? Remember, we can't give guests warnings.
 			if ($context['can_issue_warning'] && !$message['is_message_author'] && !$message['member']['is_guest'])
 				echo '

@@ -429,7 +429,8 @@ function template_folder()
 					echo '<br>
 								<span class="smalltext">&#171; ', $context['folder'] == 'sent' ? $txt['pm_sent_is_replied_to'] : $txt['pm_is_replied_to'], ' &#187;</span>';
 
-			echo '			</h5>
+			echo '
+							</h5>
 						</div><!-- .keyinfo -->
 					</div><!-- .flow_hidden -->
 					<div class="post">
